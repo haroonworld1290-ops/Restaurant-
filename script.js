@@ -38,8 +38,13 @@ function hydrate(root = document) {
   root.querySelectorAll("[data-img]:not([data-done])").forEach(el => { el.dataset.done = 1; el.insertAdjacentHTML("beforeend", slot(el.dataset.img, +el.dataset.w || 800, el.dataset.alt || "")); });
 }
 addEventListener("error", e => { const t = e.target; if (t && t.tagName === "IMG") { const p = t.closest(".ph"); if (p) p.classList.add("bad"); } }, true);
-function checkImgs() { document.querySelectorAll(".ph img").forEach(i => { if (i.complete && !i.naturalWidth) i.closest(".ph").classList.add("bad"); }); }
-
+function checkImgs() {
+  document.querySelectorAll(".ph img").forEach(i => {
+    if (i.complete && i.naturalWidth > 0) {
+      i.closest(".ph")?.classList.remove("bad");
+    }
+  });
+}
 /* nav */
 const nav = $("nav"), links = $("links"), burger = $("burger");
 addEventListener("scroll", () => nav.classList.toggle("stuck", scrollY > 30), {passive:true});
