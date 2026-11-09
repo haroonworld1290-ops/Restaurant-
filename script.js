@@ -33,8 +33,9 @@ const waLink = text => `https://wa.me/${WHATSAPP}?text=` + encodeURIComponent(te
 const cart = new Map(); let active = "All Items";
 
 /* photos: every slot has a designed fallback behind it, so a failed image never shows a broken icon */
-function slot(k, w, alt, extra = "") { return `<img src="${photo(k, w)}" alt="${alt}" loading="eager" decoding="async"${extra}>`; }
-function hydrate(root = document) {
+function slot(k, w, alt, extra = "") {
+  return `<img src="${photo(k, w)}" alt="${alt}" decoding="async"${extra}>`;
+}
   root.querySelectorAll("[data-img]:not([data-done])").forEach(el => { el.dataset.done = 1; el.insertAdjacentHTML("beforeend", slot(el.dataset.img, +el.dataset.w || 800, el.dataset.alt || "")); });
 }
 addEventListener("error", e => { const t = e.target; if (t && t.tagName === "IMG") { const p = t.closest(".ph"); if (p) p.classList.add("bad"); } }, true);
