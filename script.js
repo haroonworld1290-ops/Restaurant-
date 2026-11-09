@@ -33,7 +33,7 @@ const waLink = text => `https://wa.me/${WHATSAPP}?text=` + encodeURIComponent(te
 const cart = new Map(); let active = "All Items";
 
 /* photos: every slot has a designed fallback behind it, so a failed image never shows a broken icon */
-function slot(k, w, alt, extra = "") { return `<img src="${photo(k, w)}" alt="${alt}" loading="lazy" decoding="async"${extra}>`; }
+function slot(k, w, alt, extra = "") { return `<img src="${photo(k, w)}" alt="${alt}" loading="eager" decoding="async"${extra}>`; }
 function hydrate(root = document) {
   root.querySelectorAll("[data-img]:not([data-done])").forEach(el => { el.dataset.done = 1; el.insertAdjacentHTML("beforeend", slot(el.dataset.img, +el.dataset.w || 800, el.dataset.alt || "")); });
 }
