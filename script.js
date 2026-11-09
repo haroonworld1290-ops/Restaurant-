@@ -36,7 +36,12 @@ const cart = new Map(); let active = "All Items";
 function slot(k, w, alt, extra = "") {
   return `<img src="${photo(k, w)}" alt="${alt}" decoding="async"${extra}>`;
 }
-  root.querySelectorAll("[data-img]:not([data-done])").forEach(el => { el.dataset.done = 1; el.insertAdjacentHTML("beforeend", slot(el.dataset.img, +el.dataset.w || 800, el.dataset.alt || "")); });
+function hydrate(root = document) {
+  root.querySelectorAll("[data-img]:not([data-done])").forEach(el => {
+    el.dataset.done = 1;
+    el.insertAdjacentHTML("beforeend", slot(el.dataset.img, +el.dataset.w || 800, el.dataset.alt || ""));
+  });
+}el.dataset.done = 1; el.insertAdjacentHTML("beforeend", slot(el.dataset.img, +el.dataset.w || 800, el.dataset.alt || "")); });
 }
 addEventListener("error", e => { const t = e.target; if (t && t.tagName === "IMG") { const p = t.closest(".ph"); if (p) p.classList.add("bad"); } }, true);
 function checkImgs() {
